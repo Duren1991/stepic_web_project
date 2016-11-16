@@ -1,22 +1,19 @@
-from cgi import parse_qs                                                        
+def app(environ, start_response):
 
-def application(environ, start_response):
+	
+	raw_uri = str(environ.get('RAW_URI'))
+	
+	raw_uri = raw_uri[2:]
 
-	queryString = parse_qs(environ['QUERY_STRING'], keep_blank_values=True)
-	body = ''
-	print(queryString)
-	for key, value in queryString.items() :
-		for element in value :
-			body += key + '='                                       
-			body += element + '\r\n'
+	params = raw_uri.split('&')
+	
+	data = ''
+	for param in params:
+		data += param + '\r\n'
+	
+	start_response("200 OK", [
+	  ("Content-Type", "text/plain"),
+	  ("Content-Length", str(len(data)))
+	])
+	return iter([data])
 
-	print(body)                                                             
-		
-	status = '200 OK'
-
-	response_headers = [
-		('Content-Type', 'text/plain'),
-	]
-	start_response(status, response_headers)                                    
-
-	return [body]
