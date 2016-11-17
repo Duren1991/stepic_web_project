@@ -4,6 +4,12 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+class QuestionManager(models.Manager):                                          
+    def new():                                                              
+	pass                                                            
+    def popular():                                                          
+        pass 
+
 class Question(models.Model):
     objects = QuestionManager() 
     title = models.CharField(max_length=255)
@@ -20,11 +26,7 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('question', kwargs={"id": self.id})
 
-class QuestionManager(models.Manager):                                          
-        def new():                                                              
-                pass                                                            
-        def popular():                                                          
-                pass 
+
 
 class Answer(models.Model):
     text = models.TextField()
