@@ -4,7 +4,12 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-
+class QuestionManager(models.Manager):                                          
+    def new(self):                                                              
+	return self.order_by('added_at')
+                                                          
+    def popular():                                                          
+        return self.order_by('rating') 
 
 class Question(models.Model):
     objects = QuestionManager() 
@@ -15,12 +20,7 @@ class Question(models.Model):
     author = models.ForeignKey(User,default=1)
     likes = models.ManyToManyField(User, related_name='question', blank=True)
     #likes = models.TextField()
-class QuestionManager(models.Manager):                                          
-    def new(self):                                                              
-	return self.order_by('added_at')
-                                                          
-    def popular():                                                          
-        return self.order_by('rating') 
+
     '''def __unicode__(self):
         return self.title
 
