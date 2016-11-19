@@ -7,6 +7,5 @@ sudo /etc/init.d/gunicorn restart
 
 sudo /etc/init.d/mysql start
 mysql -uroot -e "create database qa"
-python /home/box/web/ask/manage.py syncdb
 #gunicorn -b 0.0.0.0:8080 hello:app
 #./script.sh
